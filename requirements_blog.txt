@@ -1,0 +1,32 @@
+# MT5 Data Export and Chart Generation Requirements
+# For Medium Blog Series: "Data-Driven Gold Trading: Uncovering Statistical Edges in 2025"
+
+# Core trading and data analysis
+MetaTrader5>=5.0.45
+pandas>=2.0.0
+numpy>=1.21.0
+
+# Visualization libraries
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+mplfinance>=0.12.9
+
+# Data processing and utilities
+python-dotenv>=1.0.0
+pathlib>=1.0.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# Additional visualization enhancements
+kaleido>=0.2.1  # For plotly static image export
+pillow>=10.0.0  # For image processing
+openpyxl>=3.1.0  # For Excel export capabilities
+
+# Development and testing (optional)
+jupyter>=1.0.0
+notebook>=6.5.0
+ipywidgets>=8.0.0
+
+# Statistical analysis
+statsmodels>=0.14.0

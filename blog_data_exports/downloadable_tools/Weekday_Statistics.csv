@@ -1,0 +1,6 @@
+Weekday,Sample_Size,Average_Daily_Change_Percent,Win_Rate_Percent,Average_Daily_Range_Percent,Best_Day_Percent,Worst_Day_Percent
+Monday,5,0.15,40.0,1.32,1.44,-0.62
+Tuesday,5,-0.03,60.0,1.32,0.99,-1.14
+Wednesday,5,-0.43,40.0,1.45,0.71,-1.56
+Thursday,5,0.11,60.0,1.09,0.73,-0.63
+Friday,5,0.49,60.0,1.43,2.22,-0.94
