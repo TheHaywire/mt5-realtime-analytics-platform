@@ -17,7 +17,7 @@ from services.mt5_service import get_mt5_service
 
 logger = logging.getLogger(__name__)
 
-class AnalyticsService:
+class AnalyticsServiceWorking:
     """Working analytics service that guarantees intelligence data"""
     
     def __init__(self):
@@ -472,4 +472,4 @@ class AnalyticsService:
         }
 
 # Global instance
-analytics_service = AnalyticsService()
+analytics_service_working = AnalyticsServiceWorking()

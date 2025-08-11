@@ -1,0 +1,96 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+trading_analytics.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Trading specific
+trading_data/
+historical_data/
+*.csv
+*.xlsx
+
+# MT5 specific files
+*.ex5
+*.mq5
+*.tpl
+
+# Test files
+test_*.py
+*_test.py
+test_data/
+
+# Backup files
+*.bak
+*.backup
+
+# Configuration files with secrets
+config.py
+config.json
+secrets.json
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Local development files
+local_*
+dev_*
+debug_*
+
+# System files
+nul
+*.DS_Store

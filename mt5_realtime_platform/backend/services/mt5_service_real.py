@@ -307,6 +307,46 @@ class MT5ServiceReal:
                 # Update live rates
                 self.live_rates = await self.get_live_rates()
                 
+                # Feed data to statistical and strategy engines
+                current_time = datetime.now()
+                for symbol, rate in self.live_rates.items():
+                    try:
+                        # Import here to avoid circular imports
+                        from services.statistical_engine import get_statistical_engine
+                        from services.strategy_engine import get_strategy_engine
+                        from services.pattern_recognition import get_pattern_engine
+                        
+                        # Feed data to engines
+                        statistical_engine = await get_statistical_engine()
+                        await statistical_engine.add_price_data(
+                            timestamp=current_time,
+                            symbol=symbol,
+                            bid=rate['bid'],
+                            ask=rate['ask'],
+                            volume=rate.get('volume', 0)
+                        )
+                        
+                        strategy_engine = await get_strategy_engine()
+                        await strategy_engine.add_price_data(
+                            timestamp=current_time,
+                            symbol=symbol,
+                            bid=rate['bid'],
+                            ask=rate['ask']
+                        )
+                        
+                        # Feed data to pattern recognition engine
+                        pattern_engine = await get_pattern_engine()
+                        await pattern_engine.add_price_data(
+                            timestamp=current_time,
+                            symbol=symbol,
+                            bid=rate['bid'],
+                            ask=rate['ask'],
+                            volume=rate.get('volume', 0)
+                        )
+                        
+                    except Exception as engine_error:
+                        logger.warning(f"Engine feeding error: {engine_error}")
+                
                 # Log current prices
                 for symbol, rate in self.live_rates.items():
                     logger.info(f"{symbol}: Bid={rate['bid']:.5f}, Ask={rate['ask']:.5f}, Spread={rate['spread']:.5f}")
