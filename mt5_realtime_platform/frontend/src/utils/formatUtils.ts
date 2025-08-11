@@ -1,0 +1,1 @@
+export const formatPercentage = (value: number): string => {\n  return `${(value * 100).toFixed(1)}%`;\n};\n\nexport const formatCurrency = (value: number): string => {\n  return `$${value.toFixed(2)}`;\n};\n\nexport const formatNumber = (value: number, decimals: number = 2): string => {\n  return value.toFixed(decimals);\n};

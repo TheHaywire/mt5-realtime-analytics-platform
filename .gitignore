@@ -59,6 +59,11 @@ historical_data/
 *.csv
 *.xlsx
 
+# Blog and development files
+blog_data_exports/
+real_broker_data/
+monitoring/
+
 # MT5 specific files
 *.ex5
 *.mq5

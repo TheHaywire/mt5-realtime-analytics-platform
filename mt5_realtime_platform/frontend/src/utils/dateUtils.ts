@@ -1,0 +1,1 @@
+export const formatTime = (hour: number): string => {\n  return hour.toString().padStart(2, '0');\n};\n\nexport const formatDateTime = (date: Date): string => {\n  return date.toLocaleString('en-IN', {\n    timeZone: 'Asia/Kolkata',\n    year: 'numeric',\n    month: '2-digit', \n    day: '2-digit',\n    hour: '2-digit',\n    minute: '2-digit',\n    second: '2-digit'\n  });\n};

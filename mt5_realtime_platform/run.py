@@ -22,48 +22,43 @@ FRONTEND_PORT = 3000
 
 def print_banner():
     """Print startup banner"""
-    banner = f"""
-╔══════════════════════════════════════════════════════════════╗
-║                                                              ║
-║  🚀 {PLATFORM_NAME:<48} ║
-║     Version {VERSION:<48} ║
-║                                                              ║
-║  Production-ready SaaS platform for MT5 statistical analysis║
-║  Real-time tick data • Live edge detection • Strategy monitor║
-║                                                              ║
-╚══════════════════════════════════════════════════════════════╝
-"""
-    print(banner)
+    print("=" * 60)
+    print(f" {PLATFORM_NAME}")
+    print(f" Version {VERSION}")
+    print("")
+    print(" Production-ready SaaS platform for MT5 statistical analysis")
+    print(" Real-time tick data * Live edge detection * Strategy monitor")
+    print("=" * 60)
 
 def check_dependencies():
     """Check if required dependencies are available"""
-    print("🔍 Checking dependencies...")
+    print("[INFO] Checking dependencies...")
     
     # Check Python version
     if sys.version_info < (3, 8):
-        print("❌ Python 3.8+ required")
+        print("[ERROR] Python 3.8+ required")
         return False
     
     # Check Docker availability
     try:
         subprocess.run(["docker", "--version"], capture_output=True, check=True)
-        print("✅ Docker available")
+        print("[OK] Docker available")
     except (subprocess.CalledProcessError, FileNotFoundError):
-        print("⚠️  Docker not available - falling back to local development")
+        print("[WARN]  Docker not available - falling back to local development")
     
     # Check Node.js for frontend
     try:
         subprocess.run(["node", "--version"], capture_output=True, check=True)
         subprocess.run(["npm", "--version"], capture_output=True, check=True)
-        print("✅ Node.js and npm available")
+        print("[OK] Node.js and npm available")
     except (subprocess.CalledProcessError, FileNotFoundError):
-        print("⚠️  Node.js not available - using Docker for frontend")
+        print("[WARN]  Node.js not available - using Docker for frontend")
     
     return True
 
 def setup_environment():
     """Set up environment variables and configuration"""
-    print("⚙️  Setting up environment...")
+    print("[SETUP]  Setting up environment...")
     
     # Create .env file if it doesn't exist
     env_file = Path(".env")
@@ -99,13 +94,13 @@ DEBUG=true
 """
         with open(env_file, 'w') as f:
             f.write(env_content)
-        print("✅ Created .env configuration file")
+        print("[OK] Created .env configuration file")
     
     # Create necessary directories
     directories = ['data', 'logs', 'config']
     for directory in directories:
         Path(directory).mkdir(exist_ok=True)
-    print("✅ Created necessary directories")
+    print("[OK] Created necessary directories")
 
 def start_with_docker():
     """Start platform using Docker Compose"""
@@ -117,16 +112,16 @@ def start_with_docker():
             "docker-compose", "up", "--build", "-d"
         ], check=True)
         
-        print("✅ Platform started with Docker")
+        print("[OK] Platform started with Docker")
         return True
         
     except subprocess.CalledProcessError as e:
-        print(f"❌ Docker startup failed: {e}")
+        print(f"[ERROR] Docker startup failed: {e}")
         return False
 
 def start_local_development():
     """Start platform in local development mode"""
-    print("💻 Starting platform in local development mode...")
+    print("[DEV] Starting platform in local development mode...")
     
     processes = []
     
@@ -143,7 +138,8 @@ def start_local_development():
             "--port", str(BACKEND_PORT),
             "--reload"
         ], cwd="backend", env=backend_env)
-        processes.append(("Backend", backend_process))\n        
+        processes.append(("Backend", backend_process))
+        
         # Wait for backend to start
         time.sleep(5)
         
@@ -160,11 +156,11 @@ def start_local_development():
         ], cwd="frontend")
         processes.append(("Frontend", frontend_process))
         
-        print("✅ Platform started in development mode")
+        print("[OK] Platform started in development mode")
         return processes
         
     except Exception as e:
-        print(f"❌ Local startup failed: {e}")
+        print(f"[ERROR] Local startup failed: {e}")
         # Cleanup processes
         for name, process in processes:
             process.terminate()
@@ -190,9 +186,9 @@ def wait_for_services():
         print(f"   Backend check {i+1}/30...")
     
     if backend_ready:
-        print("✅ Backend is ready")
+        print("[OK] Backend is ready")
     else:
-        print("⚠️  Backend startup timeout")
+        print("[WARN]  Backend startup timeout")
     
     # Wait for frontend
     frontend_ready = False
@@ -208,9 +204,9 @@ def wait_for_services():
         print(f"   Frontend check {i+1}/15...")
     
     if frontend_ready:
-        print("✅ Frontend is ready")
+        print("[OK] Frontend is ready")
     else:
-        print("⚠️  Frontend startup timeout")
+        print("[WARN]  Frontend startup timeout")
     
     return backend_ready and frontend_ready
 
@@ -219,21 +215,21 @@ def show_access_info():
     access_info = f"""
 🌟 Platform is ready! Access your analytics dashboard:
 
-📊 DASHBOARD: http://localhost:{FRONTEND_PORT}
+DASHBOARD: DASHBOARD: http://localhost:{FRONTEND_PORT}
 🔧 API DOCS:  http://localhost:{BACKEND_PORT}/docs
-📈 API:       http://localhost:{BACKEND_PORT}
+API: API:       http://localhost:{BACKEND_PORT}
 
 🔑 Default Login:
    Email: admin@mt5analytics.com
    Password: admin123
 
 📋 Features Available:
-   ✅ Real-time MT5 data streaming
-   ✅ Statistical edge detection  
-   ✅ Live heatmaps and visualizations
-   ✅ Strategy performance monitoring
-   ✅ WebSocket live updates
-   ✅ Professional API with authentication
+   [OK] Real-time MT5 data streaming
+   [OK] Statistical edge detection  
+   [OK] Live heatmaps and visualizations
+   [OK] Strategy performance monitoring
+   [OK] WebSocket live updates
+   [OK] Professional API with authentication
 
 🛠️  Development:
    • Backend logs: tail -f logs/backend.log
@@ -241,7 +237,7 @@ def show_access_info():
    • Database: SQLite at data/mt5_analytics.db
    • Redis: redis-cli (if running locally)
 
-⚠️  First-time setup:
+[WARN]  First-time setup:
    1. Configure MT5 credentials in .env file
    2. Set up Telegram/email alerts (optional)
    3. Create user account via API or use default admin
@@ -252,7 +248,7 @@ def show_access_info():
    • Usage tracking and rate limiting
    • Subscription plans (free/pro/enterprise)
 
-🚀 Ready for production deployment!
+[READY] Ready for production deployment!
 """
     print(access_info)
 
@@ -273,7 +269,7 @@ def main():
         subprocess.run(["docker-compose", "--version"], 
                       capture_output=True, check=True)
     except (subprocess.CalledProcessError, FileNotFoundError):
-        print("⚠️  Docker Compose not available, using local development")
+        print("[WARN]  Docker Compose not available, using local development")
         use_docker = False
     
     processes = []
@@ -299,9 +295,9 @@ def main():
                     except KeyboardInterrupt:
                         print("\\n🛑 Stopping platform...")
                         subprocess.run(["docker-compose", "down"])
-                        print("✅ Platform stopped")
+                        print("[OK] Platform stopped")
             else:
-                print("❌ Failed to start with Docker")
+                print("[ERROR] Failed to start with Docker")
                 sys.exit(1)
         else:
             processes = start_local_development()
@@ -325,9 +321,9 @@ def main():
                         print("\\n🛑 Stopping platform...")
                         for name, process in processes:
                             process.terminate()
-                            print(f"✅ {name} stopped")
+                            print(f"[OK] {name} stopped")
             else:
-                print("❌ Failed to start in local mode")
+                print("[ERROR] Failed to start in local mode")
                 sys.exit(1)
                 
     except KeyboardInterrupt:
@@ -337,7 +333,7 @@ def main():
         else:
             for name, process in processes:
                 process.terminate()
-        print("✅ Platform shutdown complete")
+        print("[OK] Platform shutdown complete")
 
 if __name__ == "__main__":
     main()
